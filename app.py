@@ -33,11 +33,11 @@ with st.sidebar:
 ) = st.columns(2)
 
 with col1:
-    effect_size = st.number_input("Effect size", value=0.20)
-    power = st.number_input("Power", value=0.08)
+    effect_size = st.number_input("Effect size")
+    power = st.number_input("Power")
 
 with col2:
-    alpha = st.number_input("Alpha", value=0.05)
+    alpha = st.number_input("Alpha")
     prize_per_participant = st.number_input("Prize per participant (in £)", value=2.5)
 
 k_groups = 1
