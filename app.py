@@ -4,7 +4,9 @@ import pandas as pd
 import math
 
 st.subheader("How many participants do I need?")
-st.markdown("Add the details below to find the magic number!")
+st.markdown(
+    "Add the details below and on the sidebar on the left to find the magic number!"
+)
 
 anova = FTestAnovaPower()
 
