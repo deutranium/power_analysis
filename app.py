@@ -58,7 +58,6 @@ for i in num_values_variables:
 
 if effect_size and power and alpha and k_groups > 1:
 
-    st.text(type(effect_size))
     n_per_group = anova.solve_power(
         effect_size=effect_size, alpha=alpha, power=power, k_groups=k_groups
     )
