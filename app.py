@@ -8,6 +8,14 @@ st.markdown(
     "Add the details below and on the sidebar on the left to find the magic number!"
 )
 
+st.info(
+    """ Choose the values below and press "Enter" for the results to update!  
+Step 1: Choose the number of independent variables below.  
+Step 2: Choose the number of values the independent variables can take on the left sidebar.  
+Step 3: Add information about Effect Size, Power, and Alpha and press enter!
+        """
+)
+
 anova = FTestAnovaPower()
 
 num_independent_variables = int(
@@ -35,42 +43,27 @@ with st.sidebar:
 ) = st.columns(2)
 
 with col1:
-    effect_size = st.number_input("Effect size")
-    power = st.number_input("Power")
+    effect_size = st.number_input("Effect size", value=0.2)
+    power = st.number_input("Power", value=0.8)
 
 with col2:
-    alpha = st.number_input("Alpha")
+    alpha = st.number_input("Alpha", value=0.05)
     prize_per_participant = st.number_input("Prize per participant (in £)", value=2.5)
+
 
 k_groups = 1
 num_values_variables = [i["num_values"] for idx, i in all_independent_variables.items()]
 for i in num_values_variables:
     k_groups *= i
 
+if effect_size and power and alpha and k_groups > 1:
 
-if effect_size and power and alpha:
-
+    st.text(type(effect_size))
     n_per_group = anova.solve_power(
         effect_size=effect_size, alpha=alpha, power=power, k_groups=k_groups
     )
 
     st.markdown("---")
-
-    #     st.markdown(
-    #         """
-    # | Total number of participants     |  {n_per_group:.2f} |
-    # | Number of participants per group |  {n_per_group//k_groups + int(bool(n_per_group%k_groups))} |
-    # | Total amount needed (in £)       |  {n_per_group * prize_per_participant:.2f} |
-    #                 """
-    #     )
-
-    #     st.markdown(f"**Total number of participants** : {n_per_group:.2f}")
-    #     st.markdown(
-    #         f"**Number of participants per group**: {n_per_group//k_groups + int(bool(n_per_group%k_groups))}"
-    #     )
-    #     st.markdown(
-    #         f"**Total amount needed (in £)**: {n_per_group * prize_per_participant:.2f}"
-    #     )
 
     data = {
         "Quantity": [
@@ -94,4 +87,6 @@ if effect_size and power and alpha:
     st.dataframe(df, hide_index=True)
 
 else:
-    st.markdown("Please choose the values above to find the number of participants")
+    st.markdown(
+        "Please choose the values above and on the left to find the number of participants"
+    )
